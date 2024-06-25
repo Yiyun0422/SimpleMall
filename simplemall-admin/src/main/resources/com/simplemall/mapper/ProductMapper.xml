@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplemall.mapper.ProductMapper">
+
+    <!--条件查询-->
+    <select id="productListSearch" resultType="com.simplemall.pojo.Product">
+        select *
+        from product
+        <where>
+            <if test="pName != null and pName != ''">
+                p_name like concat('%', #{pName}, '%')
+            </if>
+            <if test="pCategory != null">
+                and p_category = #{pCategory}
+            </if>
+            <if test="minPrice != null and maxPrice != null">
+                and p_price between #{minPrice} and #{maxPrice}
+            </if>
+            <!-- 如果只传递了最低价 -->
+            <if test="minPrice != null and (maxPrice == null or maxPrice == '')">
+                and p_price &gt;= #{minPrice}
+            </if>
+            <!-- 如果只传递了最高价 -->
+            <if test="maxPrice != null and (minPrice == null or minPrice == '')">
+                and p_price &lt;= #{maxPrice}
+            </if>
+        </where>
+    </select>
+
+    <!--修改商品信息-->
+    <update id="update">
+        update product
+        <set>
+            <if test="pImg != null and pImg != ''">
+                p_img = #{pImg},
+            </if>
+            <if test="pName != null and pName != ''">
+                p_name = #{pName},
+            </if>
+            <if test="pPrice != null and pPrice != ''">
+                p_price = #{pPrice},
+            </if>
+            <if test="pBrand != null and pBrand != ''">
+                p_brand = #{pBrand},
+            </if>
+            <if test="pNumber != null">
+                p_number = #{pNumber},
+            </if>
+            <if test="pCategory != null and pCategory != ''">
+                p_category = #{pCategory},
+            </if>
+        </set>
+        where product_id = #{productId}
+    </update>
+
+
+</mapper>

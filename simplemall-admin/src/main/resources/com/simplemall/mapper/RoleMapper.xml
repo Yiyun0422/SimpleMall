@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplemall.mapper.RoleMapper">
+
+    <!--修改商品信息-->
+    <update id="update">
+        update role
+        <set>
+            <if test="rName != null and rName != ''">
+                r_name = #{rName},
+            </if>
+            <if test="rDesc != null and rDesc != ''">
+                r_desc = #{rDesc},
+            </if>
+                r_update_time = #{rUpdateTime},
+        </set>
+        where role_id = #{roleId}
+    </update>
+
+
+
+</mapper>

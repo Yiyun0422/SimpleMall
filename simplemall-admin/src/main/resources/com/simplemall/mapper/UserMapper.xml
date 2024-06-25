@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplemall.mapper.UserMapper">
+
+    <!--条件查询-->
+    <select id="userListPage" resultType="com.simplemall.pojo.User">
+        select *
+        from user
+        <where>
+            <if test="id != null and id != ''">
+                u_id like concat('%',#{uId},'%')
+            </if>
+            <if test="name != null">
+                and u_name = #{uName}
+            </if>
+            <if test="role != null">
+                and u_role = #{uRole}
+            </if>
+        </where>
+    </select>
+
+
+    <!--更新员工-->
+    <update id="update">
+        update user
+        <set>
+            <if test="uId != null and uId != ''">
+                u_id = #{uId},
+            </if>
+            <if test="uPassword != null and uPassword != ''">
+                u_password = #{uPassword},
+            </if>
+            <if test="uName != null and uName != ''">
+                u_name = #{uName},
+            </if>
+            <if test="uImg != null and uImg != ''">
+                u_img = #{uImg},
+            </if>
+            <if test="uEmail != null">
+                u_email = #{uEmail},
+            </if>
+            <if test="uCreateTime != null">
+                u_createTime = #{uCreateTime},
+            </if>
+            <if test="uRole != null">
+                u_role = #{uRole},
+            </if>
+            <if test="uUpdateTime != null">
+                u_update_time = #{uUpdateTime}
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+</mapper>
