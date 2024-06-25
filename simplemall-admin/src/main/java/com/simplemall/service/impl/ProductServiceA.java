@@ -26,7 +26,7 @@ public class ProductServiceA implements ProductService {
     }
     public PageBean productListSearch(Integer page, Integer pageSize, String pName, Integer pCategory, BigDecimal minPrice, BigDecimal maxPrice){
         PageHelper.startPage(page,pageSize);
-        List<Product> products = productMapper.productListSearch();
+        List<Product> products = productMapper.productListSearch(pName,pCategory,minPrice,maxPrice);
         Page<Product> p=(Page<Product>)products;
         //封装pageBean对象
         PageBean pageBean=new PageBean(p.getTotal(),p.getResult());

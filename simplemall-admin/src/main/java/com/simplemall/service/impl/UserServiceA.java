@@ -19,9 +19,9 @@ public class UserServiceA implements UserService {
     @Autowired
     UserMapper userMapper;
 
-    public PageBean userListPage(Integer page,Integer pageSize){
+    public PageBean userListPage(Integer page,Integer pageSize, String uName, Integer uRole){
         PageHelper.startPage(page,pageSize);
-        List<User> users = userMapper.userListPage();
+        List<User> users = userMapper.userListPage(uName, uRole);
         Page<User> p=(Page<User>)users;
         //封装pageBean对象
         PageBean pageBean=new PageBean(p.getTotal(),p.getResult());

@@ -3,6 +3,7 @@ package com.simplemall.mapper;
 import com.simplemall.pojo.Product;
 import org.apache.ibatis.annotations.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper
@@ -10,7 +11,7 @@ public interface ProductMapper {
 
     @Select("select * from product")
     List<Product> productListPage();
-    List<Product> productListSearch();
+    List<Product> productListSearch(String pName, Integer pCategory, BigDecimal minPrice, BigDecimal maxPrice);
 
     @Insert("insert into product (p_img, p_name, p_price,p_brand,p_number, p_category) " +
             "values (#{pImg},#{pName},#{pPrice},#{pBrand},#{pNumber},#{pCategory})")

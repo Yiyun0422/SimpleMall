@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import { fetchProducts, searchProducts, deleteProduct } from '@/api/ProductsList';
-import {searchCategories} from '@/api/category'
+import { searchProducts, deleteProduct } from '@/api/ProductsList';
+import { searchCategories } from '@/api/category';
 
 export default {
   name: 'ProductList',
@@ -88,7 +88,7 @@ export default {
       try {
         // 这里加载所有数据，只需要传入页码和每页显示的数据就行
         // 用response封装，为纯粹的JSON格式数据元素
-        const response = await fetchProducts({ page, pageSize: this.pageSize });
+        const response = await searchProducts({ page, pageSize: this.pageSize });
         this.products = response.data.rows; // 更新商品数据
         this.total = response.data.total; // 更新总数
       } catch (error) {
@@ -103,8 +103,8 @@ export default {
         const response = await searchProducts({
           page: this.currentPage,
           pageSize: this.pageSize,
-          pname: this.productName,
-          pcategory: this.productCategory,
+          pName: this.productName,
+          pCategory: this.productCategory,
           minPrice: this.minPrice,
           maxPrice: this.maxPrice,
         });
@@ -149,8 +149,9 @@ export default {
     //翻页操作，获取当前页码，并重新加载
     handlePageChange(page) {
       this.currentPage = page;
-      this.loadProducts(this.currentPage);
+      this.handleSearch();
     },
+
 
     // 删除数据
     async deleteProduct(productId) {

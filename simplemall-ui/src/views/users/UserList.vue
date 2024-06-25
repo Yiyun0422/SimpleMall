@@ -4,8 +4,13 @@
       <div class="header-container">
         <span class="header-title">用户列表</span>
         <div class="header-actions">
-          <el-input v-model="input" style="width: 240px" placeholder="请输入用户名称" />
-          <el-button round plain @click="handlesearch">搜索</el-button>
+          <el-input v-model="searchName" style="width: 200px;" placeholder="请输入用户名称" />&nbsp;
+          <el-select v-model="searchRole" style="width: 100px;" placeholder="选择职能">
+            <el-option v-for="role in roles" :key="role.roleId" :label="role.rname"
+              :value="role.roleId" />
+          </el-select>&nbsp;
+          <el-button round  @click="handlesearch" type="primary">搜索</el-button>
+          <el-button round  @click="handlereset">重置</el-button>
           <el-button type="primary" round plain @click="handleAdd" class="insert-position">添加</el-button>
         </div>
       </div>
@@ -58,6 +63,7 @@
 import { ref, onMounted } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { fetchUsers, deleteUser } from '@/api/user';
+import { searchRoles } from '@/api/role';
 import { useRouter } from 'vue-router';
 
 // 定义数据类型
@@ -71,19 +77,24 @@ interface User {
   uupdateTime: string;
   urole: number | null;
 }
+interface Role {
+  roleId: number;
+  rname: string;
+}
 
 // 初始化数据
 const userData = ref<User[]>([]);
 const total = ref(0);
 const pageSize = ref(8);
 const currentPage = ref(1);
-const input = ref('')
-const roles = ref<Record<number, string>>({});
+const searchName = ref('')
+const searchRole= ref<number | null>(null);
+const roles = ref<Role[]>([]);
 
 // 更新数据
-const loadUsers = async (page: number) => {
+const loadUsers = async (page: number, uname: string = '', urole: number | null = null) => {
   try {
-    const response = await fetchUsers({ page, pageSize: pageSize.value });
+    const response = await fetchUsers({ page, pageSize: pageSize.value, uName: uname, uRole: urole });
     userData.value = response.data.rows;
     total.value = response.data.total;
     currentPage.value = page;
@@ -91,8 +102,21 @@ const loadUsers = async (page: number) => {
     ElMessage.error('获取用户信息失败');
   }
 };
+// 加载职能数据
+const loadRoles = async () => {
+  try {
+    const response = await searchRoles();
+    roles.value = response.data;
+  } catch (error) {
+    ElMessage.error('获取职能信息失败');
+  }
+};
 
-onMounted(() => loadUsers(currentPage.value));
+// 挂载方法加载用户列表和职能列表
+onMounted(() => {
+  loadUsers(currentPage.value);
+  loadRoles();
+});
 
 // 获取职能
 const getRole = (role: number | null) => {
@@ -148,9 +172,15 @@ const handleAdd = ()=>{
 
 // 搜索
 const handlesearch = async () => {
-
+  await loadUsers(1, searchName.value, searchRole.value);
 };
 
+//重置
+const handlereset = () => {
+  searchName.value = '';
+  searchRole.value = null;
+  loadUsers(currentPage.value);
+}
 
 
 // 处理时间转换
@@ -163,8 +193,9 @@ const formatDateTime = (dateTime: string) => {
 //翻页操作，获取当前页码，并重新加载
 const handlePageChange = (page: number) => {
   currentPage.value = page;
-  loadUsers(page);
+  loadUsers(page, searchName.value, searchRole.value);
 };
+
 </script>
 
 <style scoped>
@@ -172,8 +203,8 @@ const handlePageChange = (page: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 10px;
-  margin-right: 10%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 15%;
 }
 
 .header-title {

@@ -7,7 +7,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    List<User> userListPage();
+    List<User> userListPage(String uName, Integer uRole);
 
     @Delete("delete from user where user_id = #{id}")
     void delete(Integer id);

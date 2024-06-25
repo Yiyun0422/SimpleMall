@@ -18,8 +18,9 @@ public class UserController {
      * 分页查询所有用户数据
      * */
     @GetMapping("/users")
-    public Result userListPage(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer pageSize){
-        PageBean pageBean = userService.userListPage(page,pageSize);
+    public Result userListPage(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer pageSize,
+                               String uName, Integer uRole){
+        PageBean pageBean = userService.userListPage(page,pageSize,uName,uRole);
         return Result.success(pageBean);
     }
 

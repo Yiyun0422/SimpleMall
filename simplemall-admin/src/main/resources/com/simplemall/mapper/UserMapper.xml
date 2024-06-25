@@ -9,13 +9,10 @@
         select *
         from user
         <where>
-            <if test="id != null and id != ''">
-                u_id like concat('%',#{uId},'%')
+            <if test="uName != null">
+                and u_name like concat('%',#{uName},'%')
             </if>
-            <if test="name != null">
-                and u_name = #{uName}
-            </if>
-            <if test="role != null">
+            <if test="uRole != null">
                 and u_role = #{uRole}
             </if>
         </where>
