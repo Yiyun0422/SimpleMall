@@ -29,8 +29,9 @@ const routes = [
       { path: 'users/useradd', name: 'UserAdd', component: UserAdd }
     ]
   },
-  { path: '/register', name: 'Reginster', component: Register },
-  {path:'/notfoundpage',name:'404Page',component:NotFoundPage},
+  { path: '/register', name: 'Register', component: Register },
+  { path: '/notfoundpage', name: '404Page', component: NotFoundPage },
+  { path: '/:catchAll(.*)', redirect: '/notfoundpage' } // 捕获所有未知路径并重定向到404页面
 ];
 
 const router = createRouter({

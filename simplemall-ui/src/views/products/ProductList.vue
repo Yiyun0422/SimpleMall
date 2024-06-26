@@ -1,31 +1,33 @@
 <template>
-  <el-card style="max-width: 100%; min-height: 700px; height: auto;">
-    <template #header>
-      <div class="card-header">
-        <!-- 表头 -->
-        <p><b>商品信息列表</b></p>
-        <!-- 搜索条 -->
-        <div class="search-position">
-          &nbsp;&nbsp; &nbsp;&nbsp;商品名称：
-          <el-input v-model="productName" style="width: 240px" placeholder="请输入商品名称" />&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp; &nbsp;&nbsp;商品类别：
-          <el-select v-model="productCategory" style="width: 240px" placeholder="请选择商品类别">
-            <el-option v-for="category in categories" :key="category.categoryId" :label="category.cname"
-              :value="category.categoryId" />
-          </el-select>&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp; &nbsp;&nbsp;价格区间：
-          <el-input v-model="minPrice" style="width: 100px" placeholder="最低价" />&nbsp;&nbsp;
-          <span>-</span> &nbsp;
-          <el-input v-model="maxPrice" style="width: 100px" placeholder="最高价" />&nbsp;&nbsp;&nbsp;&nbsp;
-          <el-button @click="handleSearch" type="primary">搜索</el-button>
-          <el-button @click="handleReset">重置</el-button>
-        </div>
+  <div style="max-width: 100%; min-height: 700px; height: auto;">
+    <div>
+      <!-- 表头 -->
+      <div>
+        <p><span class="header-title">商品信息列表</span></p>
       </div>
-    </template>
+      <!-- 搜索条 -->
+      <div class="search-position">
+        &nbsp;&nbsp; &nbsp;&nbsp;商品名称：
+        <el-input v-model="productName" style="width: 240px" placeholder="请输入商品名称" />&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp;商品类别：
+        <el-select v-model="productCategory" style="width: 240px" placeholder="请选择商品类别">
+          <el-option v-for="category in categories" :key="category.categoryId" :label="category.cname"
+            :value="category.categoryId" />
+        </el-select>&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp; &nbsp;&nbsp;价格区间：
+        <el-input v-model="minPrice" style="width: 100px" placeholder="最低价" />&nbsp;&nbsp;
+        <span>-</span> &nbsp;
+        <el-input v-model="maxPrice" style="width: 100px" placeholder="最高价" />&nbsp;&nbsp;&nbsp;&nbsp;
+        <el-button @click="handleSearch" type="primary">搜索</el-button>
+        <el-button @click="handleReset">重置</el-button>
+      </div>
+    </div>
+
+    <hr class="divider">
 
     <div>
       <!-- 数据源 -->
-      <el-table :data="products" style="width: 100%">
+      <el-table :data="products" style="width: 100%" border>
         <el-table-column prop="productId" label="编号" width="200" align="center"></el-table-column>
         <el-table-column prop="pimg" label="图片" width="200" align="center">
           <template #default="scope">
@@ -49,11 +51,19 @@
         </el-table-column>
       </el-table>
     </div>
-  </el-card>
-  <!-- 分页 -->
-  <div style="text-align: center; margin-top: 20px;" class="page-position">
-    <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
-      @current-change="handlePageChange" />
+
+    <!-- 分页 -->
+    <div style="text-align: center; margin-top: 20px;" class="page-position">
+      <el-pagination
+        background
+        layout="prev, pager, next, sizes"
+        :total="total"
+        :page-size="pageSize"
+        :page-sizes="[5, 7, 10, 15, 50]"
+        @current-change="handlePageChange"
+        @size-change="handleSizeChange"
+      />
+    </div>
   </div>
 </template>
 
@@ -152,6 +162,12 @@ export default {
       this.handleSearch();
     },
 
+      // 翻页大小变更操作，获取当前页大小，并重新加载
+      handleSizeChange(size) {
+      this.pageSize = size;
+      this.loadProducts(this.currentPage, this.pageSize);
+    },
+
 
     // 删除数据
     async deleteProduct(productId) {
@@ -201,6 +217,13 @@ export default {
 </script>
 
 <style scoped>
+/* 字体样式 */
+.header-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px; /* 增加底部空行 */
+}
+
 img {
   display: block;
   margin: 0 auto;
@@ -215,5 +238,12 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px; /* 增加底部空行 */
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #ccc; /* 设置分隔线样式 */
+  margin: 20px 0; /* 增加上下空行 */
 }
 </style>

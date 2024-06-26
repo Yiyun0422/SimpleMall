@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100vh;">
     <!-- 侧边栏 -->
-    <el-aside width="200px">
+    <el-aside width="200px" class="menu-aside">
       <!-- 侧边栏菜单 -->
       <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="handleSelect">
         <!-- 首页 -->
@@ -33,9 +33,9 @@
     </el-aside>
     <el-container>
       <!-- 页头部 -->
-      <el-header>Header</el-header>
+      <el-header class="el-header">Header</el-header>
       <!-- 内容显示处 -->
-      <el-main>
+      <el-main class="el-main">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -110,7 +110,7 @@ export default {
         }
       }
     };
-    
+
     // 监听路由变化并更新激活菜单项
     watch(route, (newRoute) => {
       setActiveMenu(newRoute.path);
@@ -127,8 +127,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 /* 侧边框背景色 */
@@ -168,6 +166,7 @@ export default {
   padding-left: 20px; /* 增加左边距 */
   text-align: center; /* 设置文本居中 */
 }
+
 /* 子菜单标题悬停时的背景色 */
 .el-menu-vertical-demo .el-submenu__title:hover {
   background-color: #031629;
@@ -191,7 +190,13 @@ export default {
 
 /* 侧边栏的背景色 */
 .menu-aside {
-  background-color:  #072b4d;
+  background-color: #072b4d;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* 增加阴影 */
+}
+
+/* 确保主容器和内容区域的高度填满屏幕 */
+.el-container,
+.el-main {
+  height: 100%;
 }
 </style>
