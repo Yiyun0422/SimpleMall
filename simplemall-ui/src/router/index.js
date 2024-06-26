@@ -51,4 +51,17 @@ const router = createRouter({
   routes
 });
 
+// 添加全局路由守卫
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token');
+  
+  if (!token && to.path !== '/login' && to.path !== '/register' && to.path !== '/notfoundpage') {
+    // 如果没有令牌并且不是去登录、注册和404页面，则跳转到登录页面
+    next('/login');
+  } else {
+    // 否则放行
+    next();
+  }
+});
+
 export default router;

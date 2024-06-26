@@ -32,7 +32,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
-import { login } from '@/api/login';
+import { login } from '@/api/login'; // 引入登录API
 
 const router = useRouter();
 
@@ -46,6 +46,7 @@ const handleLogin = async () => {
     const response = await login(loginForm.value);
     if (response && response.code === 1) {
       localStorage.setItem('token', response.data); // 存储 token
+      ElMessage.success('登录成功');
       router.push('/');
     } else {
       ElMessage.error(response.msg || '登录失败');
