@@ -71,6 +71,7 @@ interface CategoryAdd {
 }
 
 const categoryData = ref<Category[]>([]);
+
 // 初始化
 const dialogEdit = ref(false);
 const form = ref<Category>({ categoryId: 0, cname: '', cnumber: 0 });

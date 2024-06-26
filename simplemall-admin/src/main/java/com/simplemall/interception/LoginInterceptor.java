@@ -1,4 +1,3 @@
-/*
 package com.simplemall.interception;
 
 import com.alibaba.fastjson.JSONObject;
@@ -73,4 +72,3 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.info("afterCompletion ...");
     }
 }
-*/

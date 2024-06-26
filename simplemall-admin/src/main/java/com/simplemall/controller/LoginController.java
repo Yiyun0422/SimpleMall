@@ -1,4 +1,3 @@
-/*
 package com.simplemall.controller;
 
 import com.simplemall.pojo.Result;
@@ -8,7 +7,6 @@ import com.simplemall.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -34,4 +32,4 @@ public class LoginController {
             return  Result.error("用户名或账号错误");
         }
     }
-}*/
+}

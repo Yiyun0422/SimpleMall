@@ -48,7 +48,7 @@ public class UserServiceA implements UserService {
     }
 
 
-/*    public User login(User user){
+    public User login(User user){
         return userMapper.checkUserExist(user);
-    }*/
+    }
 }

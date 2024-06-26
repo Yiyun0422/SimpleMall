@@ -1,11 +1,5 @@
 <template>
   <div class="login-container">
-    <!-- 左侧图片 -->
-    <!-- <div class="login-image">
-      <img src="@/assets/images/loginPage.png" alt="Login Image">
-    </div> -->
-
-    <!-- 右侧登录主体 -->
     <div class="login-body">
       <el-form :model="loginForm" @submit.prevent="handleLogin">
         <el-form-item label="账号" class="login-input">
@@ -51,10 +45,10 @@ const handleLogin = async () => {
   try {
     const response = await login(loginForm.value);
     if (response && response.code === 1) {
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data); // 存储 token
       router.push('/');
     } else {
-      ElMessage.error(response.data.msg || '登录失败');
+      ElMessage.error(response.msg || '登录失败');
     }
   } catch (error) {
     ElMessage.error(error.message || '登录时发生错误');
@@ -72,14 +66,6 @@ const handleRegister = () => {
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
-
-.login-image {
-  width: 50%;
-}
-
-.login-image img {
-  width: 100%;
 }
 
 .login-body {

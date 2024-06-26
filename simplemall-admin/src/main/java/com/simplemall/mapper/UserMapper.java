@@ -22,4 +22,6 @@ public interface UserMapper {
 
     void update(User user);
 
+    @Select("select * from user where u_id = #{uId} and u_password = #{uPassword}")
+    User checkUserExist(User user);
 }
