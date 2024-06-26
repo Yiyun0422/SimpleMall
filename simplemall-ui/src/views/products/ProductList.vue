@@ -237,7 +237,7 @@ img {
 }
 
 .table-container {
-  margin-bottom: 80px; /* 为分页条预留空间 */
+  margin-bottom: 120px; /* 增加底部空行 */
 }
 
 .pagination-card {
