@@ -1,60 +1,63 @@
 <template>
-  <el-container style="height: 100%;">
-    <!-- 侧边栏 -->
-    <el-aside width="200px" class="menu-aside">
-      <!-- 侧边栏菜单 -->
-      <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="handleSelect">
-        <!-- 系统首页 -->
-        <el-menu-item index="1" style="background-color: #314154;">
-          <span>系统首页</span>
-        </el-menu-item>
+  <div v-if="!isSpecialPage">
+    <el-container style="height: 100%;">
+      <!-- 侧边栏 -->
+      <el-aside width="200px" class="menu-aside">
+        <!-- 侧边栏菜单 -->
+        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="handleSelect">
+          <!-- 系统首页 -->
+          <el-menu-item index="1" style="background-color: #314154;">
+            <span>系统首页</span>
+          </el-menu-item>
 
-        <!-- 商品管理目录项 -->
-        <el-sub-menu index="2">
-          <template #title>
-            <span style="color: aliceblue;">商品管理</span>
-          </template>
+          <!-- 商品管理目录项 -->
+          <el-sub-menu index="2">
+            <template #title>
+              <span style="color: aliceblue;">商品管理</span>
+            </template>
 
-          <el-menu-item index="2-1">商品列表</el-menu-item>
-          <el-menu-item index="2-2">添加商品</el-menu-item>
-          <el-menu-item index="2-3">商品类别</el-menu-item>
-        </el-sub-menu>
+            <el-menu-item index="2-1">商品列表</el-menu-item>
+            <el-menu-item index="2-2">添加商品</el-menu-item>
+            <el-menu-item index="2-3">商品类别</el-menu-item>
+          </el-sub-menu>
 
-        <!-- 订单管理目录项 -->
-        <el-sub-menu index="3">
-          <template #title>
-            <span style="color: aliceblue;">订单管理</span>
-          </template>
+          <!-- 订单管理目录项 -->
+          <el-sub-menu index="3">
+            <template #title>
+              <span style="color: aliceblue;">订单管理</span>
+            </template>
 
-          <el-menu-item index="3-1">订单列表</el-menu-item>
-          <el-menu-item index="3-2">订单记录</el-menu-item>
-        </el-sub-menu>
+            <el-menu-item index="3-1">订单列表</el-menu-item>
+            <el-menu-item index="3-2">订单记录</el-menu-item>
+          </el-sub-menu>
 
-        <!-- 用户管理目录项 -->
-        <el-sub-menu index="4">
-          <template #title>
-            <span style="color: aliceblue;">用户管理</span>
-          </template>
+          <!-- 用户管理目录项 -->
+          <el-sub-menu index="4">
+            <template #title>
+              <span style="color: aliceblue;">用户管理</span>
+            </template>
 
-          <el-menu-item index="4-1">用户列表</el-menu-item>
-          <el-menu-item index="4-2">职能管理</el-menu-item>
-        </el-sub-menu>
+            <el-menu-item index="4-1">用户列表</el-menu-item>
+            <el-menu-item index="4-2">职能管理</el-menu-item>
+          </el-sub-menu>
 
-        <!-- 个人中心 -->
-        <el-menu-item index="5" style="background-color: #314154;">
-          <span>个人中心</span>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
-    <el-container>
-      <!-- 页头部 -->
-      <el-header class="el-header">SimpleMall简易商场管理系统后台</el-header>
-      <!-- 内容显示处 -->
-      <el-main class="el-main">
-        <router-view></router-view>
-      </el-main>
+          <!-- 个人中心 -->
+          <el-menu-item index="5" style="background-color: #314154;">
+            <span>个人中心</span>
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-container>
+        <!-- 页头部 -->
+        <el-header class="el-header">SimpleMall简易商场管理系统后台</el-header>
+        <!-- 内容显示处 -->
+        <el-main class="el-main">
+          <router-view></router-view>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
+  <router-view v-else></router-view>
 </template>
 
 <script>
@@ -67,6 +70,7 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const activeMenu = ref('1');
+    const isSpecialPage = ref(false);
 
     const handleSelect = (key) => {
       switch (key) {
@@ -134,6 +138,7 @@ export default {
             break;
           case '/users/userrole':
             activeMenu.value = '4-2';
+            break;
           case '/personal':
             activeMenu.value = '5';
             break;
@@ -143,18 +148,25 @@ export default {
       }
     };
 
-    // 监听路由变化并更新激活菜单项
+    const checkSpecialPage = (path) => {
+      isSpecialPage.value = ['/login', '/register', '/notfoundpage'].includes(path);
+    };
+
+    // 监听路由变化并更新激活菜单项和页面模式
     watch(route, (newRoute) => {
       setActiveMenu(newRoute.path);
+      checkSpecialPage(newRoute.path);
     });
 
     onMounted(() => {
       setActiveMenu(route.path);
+      checkSpecialPage(route.path);
     });
 
     return {
       activeMenu,
       handleSelect,
+      isSpecialPage,
     };
   },
 };
@@ -189,12 +201,6 @@ export default {
   color: #ffffff; /* 文本颜色 */
 }
 
-/* 系统首页菜单项样式 */
-.el-menu-vertical-demo .el-menu-item.system-home {
-  background-color: #233242; /* 特定背景色 */
-  color: #ffffff; /* 文本颜色 */
-}
-
 /* 鼠标悬停样式 */
 .el-menu-vertical-demo .el-menu-item:hover {
   background-color: #112033; /* 背景色 */
@@ -203,12 +209,8 @@ export default {
 
 /* 激活状态样式 */
 .el-menu-vertical-demo .el-menu-item.is-active {
-
   color: #4c97e2; /* 文本颜色 */
 }
-
-
-
 
 /* 子菜单标题样式 */
 .el-menu-vertical-demo .el-submenu__title {
