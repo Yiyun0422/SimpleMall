@@ -1,6 +1,6 @@
 import service from "../utils/axios"
 
-// 查询所有用户
+// 条件分页查询用户
 export async function fetchUsers(params) {
     try {
         const response = await service.get(`/users`, { params });
@@ -12,10 +12,6 @@ export async function fetchUsers(params) {
         throw new Error('Network Error');
     }
 }
-
-// 条件搜索用户
-export async function searchUser() { }
-
 
 
 // 删除用户

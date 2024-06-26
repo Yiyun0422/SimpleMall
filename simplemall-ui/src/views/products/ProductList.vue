@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 100%; min-height: 700px; height: auto;">
+  <div class="container">
     <div>
       <!-- 表头 -->
       <div>
@@ -7,14 +7,14 @@
       </div>
       <!-- 搜索条 -->
       <div class="search-position">
-        &nbsp;&nbsp; &nbsp;&nbsp;商品名称：
+        商品名称：
         <el-input v-model="productName" style="width: 240px" placeholder="请输入商品名称" />&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp; &nbsp;&nbsp;商品类别：
+        商品类别：
         <el-select v-model="productCategory" style="width: 240px" placeholder="请选择商品类别">
           <el-option v-for="category in categories" :key="category.categoryId" :label="category.cname"
             :value="category.categoryId" />
         </el-select>&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp; &nbsp;&nbsp;价格区间：
+        价格区间：
         <el-input v-model="minPrice" style="width: 100px" placeholder="最低价" />&nbsp;&nbsp;
         <span>-</span> &nbsp;
         <el-input v-model="maxPrice" style="width: 100px" placeholder="最高价" />&nbsp;&nbsp;&nbsp;&nbsp;
@@ -25,7 +25,7 @@
 
     <hr class="divider">
 
-    <div>
+    <div class="table-container">
       <!-- 数据源 -->
       <el-table :data="products" style="width: 100%" border>
         <el-table-column prop="productId" label="编号" width="200" align="center"></el-table-column>
@@ -52,18 +52,20 @@
       </el-table>
     </div>
 
-    <!-- 分页 -->
-    <div style="text-align: center; margin-top: 20px;" class="page-position">
-      <el-pagination
-        background
-        layout="prev, pager, next, sizes"
-        :total="total"
-        :page-size="pageSize"
-        :page-sizes="[5, 7, 10, 15, 50]"
-        @current-change="handlePageChange"
-        @size-change="handleSizeChange"
-      />
-    </div>
+    <!-- 分页卡片 -->
+    <el-card class="pagination-card">
+      <div class="page-position">
+        <el-pagination
+          background
+          layout="prev, pager, next, sizes"
+          :total="total"
+          :page-size="pageSize"
+          :page-sizes="[5, 7, 10, 15, 50]"
+          @current-change="handlePageChange"
+          @size-change="handleSizeChange"
+        />
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -162,12 +164,11 @@ export default {
       this.handleSearch();
     },
 
-      // 翻页大小变更操作，获取当前页大小，并重新加载
-      handleSizeChange(size) {
+    // 翻页大小变更操作，获取当前页大小，并重新加载
+    handleSizeChange(size) {
       this.pageSize = size;
       this.loadProducts(this.currentPage, this.pageSize);
     },
-
 
     // 删除数据
     async deleteProduct(productId) {
@@ -196,7 +197,6 @@ export default {
         this.$message.error(error.message);
       }
     },
-
 
     // 进入编辑表单
     editProduct(productId) {
@@ -229,9 +229,34 @@ img {
   margin: 0 auto;
 }
 
+.container {
+  position: relative;
+  max-width: 100%;
+  min-height: 700px;
+  height: auto;
+}
+
+.table-container {
+  margin-bottom: 80px; /* 为分页条预留空间 */
+}
+
+.pagination-card {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 201px); /* 减去侧边栏的宽度 */
+  background: white; /* 设置背景色 */
+  border-radius: 0;
+  z-index: 1000;
+}
+
 .page-position {
-  position: absolute;
-  right: 100px;
+  text-align: right; /* 使内容在容器内右对齐 */
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
 .search-position {

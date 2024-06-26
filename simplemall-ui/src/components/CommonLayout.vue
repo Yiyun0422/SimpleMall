@@ -1,63 +1,57 @@
 <template>
-  <div v-if="!isSpecialPage">
-    <el-container style="height: 100%;">
-      <!-- 侧边栏 -->
-      <el-aside width="200px" class="menu-aside">
-        <!-- 侧边栏菜单 -->
-        <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="handleSelect">
-          <!-- 系统首页 -->
-          <el-menu-item index="1" style="background-color: #314154;">
-            <span>系统首页</span>
-          </el-menu-item>
+  <el-container style="height: 100%;">
+    <!-- 侧边栏 -->
+    <el-aside width="200px" class="menu-aside">
+      <!-- 侧边栏菜单 -->
+      <el-menu :default-active="activeMenu" class="el-menu-vertical-demo" @select="handleSelect">
+        <!-- 系统首页 -->
+        <el-menu-item index="1" style="background-color: #314154;">
+          <span>系统首页</span>
+        </el-menu-item>
 
-          <!-- 商品管理目录项 -->
-          <el-sub-menu index="2">
-            <template #title>
-              <span style="color: aliceblue;">商品管理</span>
-            </template>
+        <!-- 商品管理目录项 -->
+        <el-sub-menu index="2">
+          <template #title>
+            <span style="color: aliceblue;">商品管理</span>
+          </template>
+          <el-menu-item index="2-1">商品列表</el-menu-item>
+          <el-menu-item index="2-2">添加商品</el-menu-item>
+          <el-menu-item index="2-3">商品类别</el-menu-item>
+        </el-sub-menu>
 
-            <el-menu-item index="2-1">商品列表</el-menu-item>
-            <el-menu-item index="2-2">添加商品</el-menu-item>
-            <el-menu-item index="2-3">商品类别</el-menu-item>
-          </el-sub-menu>
+        <!-- 订单管理目录项 -->
+        <el-sub-menu index="3">
+          <template #title>
+            <span style="color: aliceblue;">订单管理</span>
+          </template>
+          <el-menu-item index="3-1">订单列表</el-menu-item>
+          <el-menu-item index="3-2">订单记录</el-menu-item>
+        </el-sub-menu>
 
-          <!-- 订单管理目录项 -->
-          <el-sub-menu index="3">
-            <template #title>
-              <span style="color: aliceblue;">订单管理</span>
-            </template>
+        <!-- 用户管理目录项 -->
+        <el-sub-menu index="4">
+          <template #title>
+            <span style="color: aliceblue;">用户管理</span>
+          </template>
+          <el-menu-item index="4-1">用户列表</el-menu-item>
+          <el-menu-item index="4-2">职能管理</el-menu-item>
+        </el-sub-menu>
 
-            <el-menu-item index="3-1">订单列表</el-menu-item>
-            <el-menu-item index="3-2">订单记录</el-menu-item>
-          </el-sub-menu>
-
-          <!-- 用户管理目录项 -->
-          <el-sub-menu index="4">
-            <template #title>
-              <span style="color: aliceblue;">用户管理</span>
-            </template>
-
-            <el-menu-item index="4-1">用户列表</el-menu-item>
-            <el-menu-item index="4-2">职能管理</el-menu-item>
-          </el-sub-menu>
-
-          <!-- 个人中心 -->
-          <el-menu-item index="5" style="background-color: #314154;">
-            <span>个人中心</span>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-      <el-container>
-        <!-- 页头部 -->
-        <el-header class="el-header">SimpleMall简易商场管理系统后台</el-header>
-        <!-- 内容显示处 -->
-        <el-main class="el-main">
-          <router-view></router-view>
-        </el-main>
-      </el-container>
+        <!-- 个人中心 -->
+        <el-menu-item index="5" style="background-color: #314154;">
+          <span>个人中心</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+    <el-container>
+      <!-- 页头部 -->
+      <el-header class="el-header">SimpleMall简易商场管理系统后台</el-header>
+      <!-- 内容显示处 -->
+      <el-main class="el-main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
-  </div>
-  <router-view v-else></router-view>
+  </el-container>
 </template>
 
 <script>
@@ -70,7 +64,6 @@ export default {
     const router = useRouter();
     const route = useRoute();
     const activeMenu = ref('1');
-    const isSpecialPage = ref(false);
 
     const handleSelect = (key) => {
       switch (key) {
@@ -148,25 +141,18 @@ export default {
       }
     };
 
-    const checkSpecialPage = (path) => {
-      isSpecialPage.value = ['/login', '/register', '/notfoundpage'].includes(path);
-    };
-
-    // 监听路由变化并更新激活菜单项和页面模式
+    // 监听路由变化并更新激活菜单项
     watch(route, (newRoute) => {
       setActiveMenu(newRoute.path);
-      checkSpecialPage(newRoute.path);
     });
 
     onMounted(() => {
       setActiveMenu(route.path);
-      checkSpecialPage(route.path);
     });
 
     return {
       activeMenu,
       handleSelect,
-      isSpecialPage,
     };
   },
 };
