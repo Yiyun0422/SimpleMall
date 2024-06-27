@@ -11,7 +11,7 @@
  Target Server Version : 80035
  File Encoding         : 65001
 
- Date: 27/06/2024 16:04:53
+ Date: 28/06/2024 04:18:57
 */
 
 SET NAMES utf8mb4;
@@ -27,7 +27,7 @@ CREATE TABLE `category`  (
   `c_number` int NULL DEFAULT NULL COMMENT '类别总数量',
   PRIMARY KEY (`category_id`) USING BTREE,
   CONSTRAINT `chk_cname_non_empty` CHECK (`c_name` <> _utf8mb4'')
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '类别表，存储类别信息' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '类别表，存储类别信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
@@ -37,6 +37,34 @@ INSERT INTO `category` VALUES (2, '手机数码', NULL);
 INSERT INTO `category` VALUES (3, '家电电器', NULL);
 INSERT INTO `category` VALUES (4, '家居家装', NULL);
 INSERT INTO `category` VALUES (5, '汽车用品', NULL);
+
+-- ----------------------------
+-- Table structure for order
+-- ----------------------------
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order`  (
+  `user_id` int NOT NULL COMMENT '用户',
+  `u_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户名',
+  `product_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '产品',
+  `order_time` timestamp NULL DEFAULT NULL COMMENT '下单时间',
+  `status` tinyint NULL DEFAULT NULL COMMENT '状态（1已处理，0未处理）',
+  `order_id` int NOT NULL AUTO_INCREMENT,
+  `operate_time` timestamp NULL DEFAULT NULL COMMENT '处理时间',
+  `finish` tinyint NULL DEFAULT NULL COMMENT '是否发货（1发货，0取消）',
+  `p_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '商品名称',
+  PRIMARY KEY (`order_id`, `product_id`, `user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order
+-- ----------------------------
+INSERT INTO `order` VALUES (1, '1111', '1', NULL, 1, 1, NULL, 1, NULL);
+INSERT INTO `order` VALUES (2, '2', '2', NULL, 1, 2, NULL, 1, NULL);
+INSERT INTO `order` VALUES (3, '3', '3', NULL, 1, 3, NULL, 0, NULL);
+INSERT INTO `order` VALUES (4, '4', '4', NULL, 1, 4, NULL, 0, NULL);
+INSERT INTO `order` VALUES (5, '5', '5', NULL, 1, 5, NULL, 1, NULL);
+INSERT INTO `order` VALUES (6, '6', '6', NULL, 1, 6, NULL, 1, NULL);
+INSERT INTO `order` VALUES (7, '7', '7', NULL, 1, 7, NULL, 1, NULL);
 
 -- ----------------------------
 -- Table structure for product
@@ -51,17 +79,17 @@ CREATE TABLE `product`  (
   `p_number` int NOT NULL COMMENT '商品数量',
   `p_category` int NULL DEFAULT NULL COMMENT '类别ID，逻辑外键',
   PRIMARY KEY (`product_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品表，存储商品信息' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 76 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '商品表，存储商品信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
 INSERT INTO `product` VALUES (1, '.img', 'MLB官方老花仿牛仔学长鞋', 'MLB', 1032.00, 98, 1);
 INSERT INTO `product` VALUES (2, '.img', 'Jordan男子缓震复古运动鞋', 'JORDAN乔丹', 144.20, 3, 1);
-INSERT INTO `product` VALUES (3, '.img', 'SAMBA OG复古板鞋男女adidas阿迪达斯三叶草', 'adidas阿迪达斯', 799.00, 1000, 1);
-INSERT INTO `product` VALUES (4, '.img', 'Unvesno (UN) 迷雾炒花短袖t恤中性风衣服潮牌情侣夏装圆领宽松', 'Unvesno（UN）', 139.00, 1000, 1);
-INSERT INTO `product` VALUES (5, '.img', '范洛法式连衣裙设计感收腰小黑裙', '范洛', 249.00, 1000, 1);
-INSERT INTO `product` VALUES (6, '.img', '优衣库棉麻开领衬衫短袖', '优衣库', 149.00, 1000, 1);
+INSERT INTO `product` VALUES (3, '.img', 'SAMBA OG复古板鞋男女adidas阿迪达斯三叶草', 'adidas阿迪达斯', 799.00, 1001, 1);
+INSERT INTO `product` VALUES (4, '.img', 'Unvesno (UN) 迷雾炒花短袖t恤中性风衣服潮牌情侣夏装圆领宽松', 'Unvesno（UN）', 139.00, 1001, 1);
+INSERT INTO `product` VALUES (5, '.img', '范洛法式连衣裙设计感收腰小黑裙', '范洛', 249.00, 1001, 1);
+INSERT INTO `product` VALUES (6, '.img', '优衣库棉麻开领衬衫短袖', '优衣库', 149.00, 1004, 1);
 INSERT INTO `product` VALUES (8, '.img', '骆驼春秋抓绒内胆防风防水三合一可拆卸冲锋衣夹克外套', '骆驼', 439.00, 1000, 1);
 INSERT INTO `product` VALUES (9, '.img', 'FILA KIDS斐乐童装男女大童长裤', '斐乐', 248.00, 1000, 1);
 INSERT INTO `product` VALUES (10, '.img', '曜金爵士乐福鞋', '思加图', 897.00, 1000, 1);
@@ -152,7 +180,7 @@ CREATE TABLE `user`  (
   `u_role` int NULL DEFAULT NULL COMMENT '角色ID，逻辑外键',
   PRIMARY KEY (`user_id`) USING BTREE,
   UNIQUE INDEX `u_id`(`u_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 191 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表，存储用户信息' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 196 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表，存储用户信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
@@ -278,6 +306,7 @@ INSERT INTO `user` VALUES (151, 'user115', 'user123570', '用户115', NULL, 'use
 INSERT INTO `user` VALUES (152, 'user116', 'user123571', '用户116', NULL, 'user116@163.com', '2024-05-23 11:47:01', '2024-05-23 11:47:01', NULL);
 INSERT INTO `user` VALUES (153, 'user117', 'user123572', '用户117', NULL, 'user117@163.com', '2024-05-23 11:47:01', '2024-05-23 11:47:01', NULL);
 INSERT INTO `user` VALUES (154, 'user118', 'user123573', '用户119', NULL, 'user118@163.com', '2024-05-23 11:47:01', '2024-05-27 00:35:16', 3);
+INSERT INTO `user` VALUES (191, '111', 'user123456', '111', '', '', '2024-06-27 23:39:19', '2024-06-27 23:39:19', NULL);
 
 -- ----------------------------
 -- Triggers structure for table product

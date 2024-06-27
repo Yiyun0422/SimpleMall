@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simplemall.mapper.RecordMapper">
+    <!--条件查询-->
+    <select id="recordListPage" resultType="com.simplemall.pojo.Order">
+        select o.*, p.p_name as pname
+        from `order` o
+        left join product p on o.product_id = p.product_id
+        <where>
+            <if test="uId != null and uId != ''">
+                and o.u_id like concat('%', #{uId}, '%')
+            </if>
+            <if test="finish != null">
+                and o.finish = #{finish}
+            </if>
+            and o.status = 1
+        </where>
+    </select>
+</mapper>
