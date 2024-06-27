@@ -45,7 +45,22 @@
     </el-aside>
     <el-container>
       <!-- 页头部 -->
-      <el-header class="el-header">SimpleMall简易商场管理系统后台</el-header>
+      <el-header class="el-header">
+        <div class="header-title">
+          SimpleMall简易商场管理系统后台
+        </div>
+        <el-dropdown @command="handleAvatarCommand" class="header-avatar">
+          <span class="el-dropdown-link">
+            <img class="profile-avatar" src="../assets/images/profile.jpg" alt="profile" />
+          </span>
+          <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+      </el-header>
       <!-- 内容显示处 -->
       <el-main class="el-main">
         <router-view></router-view>
@@ -57,6 +72,7 @@
 <script>
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { ElMessageBox, ElMessage } from 'element-plus';
 
 export default {
   name: 'CommonLayout',
@@ -141,6 +157,31 @@ export default {
       }
     };
 
+    const handleAvatarCommand = (command) => {
+      console.log(`Received command: ${command}`); // 添加日志调试信息
+      if (command === 'personal') {
+        router.push('/personal');
+      } else if (command === 'logout') {
+        ElMessageBox.confirm('您确定要退出登录吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          localStorage.removeItem('token');
+          ElMessage({
+            type: 'success',
+            message: '退出成功',
+          });
+          router.push('/login');
+        }).catch(() => {
+          ElMessage({
+            type: 'info',
+            message: '已取消退出',
+          });
+        });
+      }
+    };
+
     // 监听路由变化并更新激活菜单项
     watch(route, (newRoute) => {
       setActiveMenu(newRoute.path);
@@ -153,6 +194,7 @@ export default {
     return {
       activeMenu,
       handleSelect,
+      handleAvatarCommand,
     };
   },
 };
@@ -217,11 +259,32 @@ export default {
 
 /* 页头样式 */
 .el-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
   color: #031629; /* 文本颜色 */
-  text-align: center; /* 文本居中 */
   line-height: 60px; /* 垂直居中对齐 */
   font-size: 24px; /* 字体大小 */
   font-weight: bold; /* 字体加粗 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 增加阴影 */
+}
+
+/* 标题样式 */
+.header-title {
+  flex: 1;
+  text-align: center;
+}
+
+/* 头像样式 */
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.header-avatar {
+  margin-left: 10%;
 }
 </style>
