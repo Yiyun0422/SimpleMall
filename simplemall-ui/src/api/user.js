@@ -4,11 +4,6 @@ import service from "../utils/axios"
 export async function fetchUsers(params) {
     try {
         const response = await service.get(`/users`, { params });
-        console.log(response)
-        console.log(response)
-        console.log(response)
-        console.log(response)
-        console.log(response)
         if (response.code !== 1) {
             throw new Error(response.msg || 'Failed to fetch users');
         }

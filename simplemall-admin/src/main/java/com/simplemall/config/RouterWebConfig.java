@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 配置拦截器，进行动态拦截操作
- * */
+ */
 @Configuration
 public class RouterWebConfig implements WebMvcConfigurer {
     @Autowired
@@ -30,6 +30,6 @@ public class RouterWebConfig implements WebMvcConfigurer {
                         "/firstpage",
                         "/order/**",
                         "/personal") // 需要登录认证的路径
-                .excludePathPatterns("/login", "/register", "/notfoundpage"); // 不需要登录认证的路径
+                .excludePathPatterns("/login", "/register", "/notfoundpage", "/user/insert"); // 不需要登录认证的路径
     }
 }

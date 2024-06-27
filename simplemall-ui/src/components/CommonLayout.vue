@@ -54,10 +54,10 @@
             <img class="profile-avatar" src="../assets/images/profile.jpg" alt="profile" />
           </span>
           <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="personal">个人中心</el-dropdown-item>
-            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
+            <el-dropdown-menu>
+              <el-dropdown-item command="personal">个人中心</el-dropdown-item>
+              <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
           </template>
         </el-dropdown>
       </el-header>
@@ -69,135 +69,124 @@
   </el-container>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMessageBox, ElMessage } from 'element-plus';
 
-export default {
-  name: 'CommonLayout',
-  setup() {
-    const router = useRouter();
-    const route = useRoute();
-    const activeMenu = ref('1');
+const router = useRouter();
+const route = useRoute();
+const activeMenu = ref('1');
 
-    const handleSelect = (key) => {
-      switch (key) {
-        case '1':
-          router.push('/firstpage');
-          break;
-        case '2-1':
-          router.push('/products/productlist');
-          break;
-        case '2-2':
-          router.push('/products/productadd');
-          break;
-        case '2-3':
-          router.push('/products/productcategory');
-          break;
-        case '3-1':
-          router.push('/order/orderlist');
-          break;
-        case '3-2':
-          router.push('/order/orderrecord');
-          break;
-        case '4-1':
-          router.push('/users/userlist');
-          break;
-        case '4-2':
-          router.push('/users/userrole');
-          break;
-        case '5':
-          router.push('/personal');
-          break;
-        default:
-          break;
-      }
-    };
-
-    const setActiveMenu = (path) => {
-      if (path.startsWith('/products/productedit')) {
-        activeMenu.value = '2-1';
-      } else if (path.startsWith('/users/useredit')) {
-        activeMenu.value = '4-1';
-      } else if (path.startsWith('/users/useradd')) {
-        activeMenu.value = '4-1';
-      } else {
-        switch (path) {
-          case '/firstpage':
-            activeMenu.value = '1';
-            break;
-          case '/products/productlist':
-            activeMenu.value = '2-1';
-            break;
-          case '/products/productadd':
-            activeMenu.value = '2-2';
-            break;
-          case '/products/productcategory':
-            activeMenu.value = '2-3';
-            break;
-          case '/order/orderlist':
-            activeMenu.value = '3-1';
-            break;
-          case '/order/orderrecord':
-            activeMenu.value = '3-2';
-            break;
-          case '/users/userlist':
-            activeMenu.value = '4-1';
-            break;
-          case '/users/userrole':
-            activeMenu.value = '4-2';
-            break;
-          case '/personal':
-            activeMenu.value = '5';
-            break;
-          default:
-            activeMenu.value = '1';
-        }
-      }
-    };
-
-    const handleAvatarCommand = (command) => {
-      console.log(`Received command: ${command}`); // 添加日志调试信息
-      if (command === 'personal') {
-        router.push('/personal');
-      } else if (command === 'logout') {
-        ElMessageBox.confirm('您确定要退出登录吗?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }).then(() => {
-          localStorage.removeItem('token');
-          ElMessage({
-            type: 'success',
-            message: '退出成功',
-          });
-          router.push('/login');
-        }).catch(() => {
-          ElMessage({
-            type: 'info',
-            message: '已取消退出',
-          });
-        });
-      }
-    };
-
-    // 监听路由变化并更新激活菜单项
-    watch(route, (newRoute) => {
-      setActiveMenu(newRoute.path);
-    });
-
-    onMounted(() => {
-      setActiveMenu(route.path);
-    });
-
-    return {
-      activeMenu,
-      handleSelect,
-      handleAvatarCommand,
-    };
-  },
+const handleSelect = (key) => {
+  switch (key) {
+    case '1':
+      router.push('/firstpage');
+      break;
+    case '2-1':
+      router.push('/products/productlist');
+      break;
+    case '2-2':
+      router.push('/products/productadd');
+      break;
+    case '2-3':
+      router.push('/products/productcategory');
+      break;
+    case '3-1':
+      router.push('/order/orderlist');
+      break;
+    case '3-2':
+      router.push('/order/orderrecord');
+      break;
+    case '4-1':
+      router.push('/users/userlist');
+      break;
+    case '4-2':
+      router.push('/users/userrole');
+      break;
+    case '5':
+      router.push('/personal');
+      break;
+    default:
+      break;
+  }
 };
+
+const setActiveMenu = (path) => {
+  if (path.startsWith('/products/productedit')) {
+    activeMenu.value = '2-1';
+  } else if (path.startsWith('/users/useredit')) {
+    activeMenu.value = '4-1';
+  } else if (path.startsWith('/users/useradd')) {
+    activeMenu.value = '4-1';
+  } else {
+    switch (path) {
+      case '/firstpage':
+        activeMenu.value = '1';
+        break;
+      case '/products/productlist':
+        activeMenu.value = '2-1';
+        break;
+      case '/products/productadd':
+        activeMenu.value = '2-2';
+        break;
+      case '/products/productcategory':
+        activeMenu.value = '2-3';
+        break;
+      case '/order/orderlist':
+        activeMenu.value = '3-1';
+        break;
+      case '/order/orderrecord':
+        activeMenu.value = '3-2';
+        break;
+      case '/users/userlist':
+        activeMenu.value = '4-1';
+        break;
+      case '/users/userrole':
+        activeMenu.value = '4-2';
+        break;
+      case '/personal':
+        activeMenu.value = '5';
+        break;
+      default:
+        activeMenu.value = '1';
+    }
+  }
+};
+
+const handleAvatarCommand = (command) => {
+  console.log(`Received command: ${command}`); // 添加日志调试信息
+  if (command === 'personal') {
+    router.push('/personal');
+  } else if (command === 'logout') {
+    ElMessageBox.confirm('您确定要退出登录吗?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }).then(() => {
+      localStorage.removeItem('token');
+      ElMessage({
+        type: 'success',
+        message: '退出成功',
+      });
+      router.push('/login');
+    }).catch(() => {
+      ElMessage({
+        type: 'info',
+        message: '已取消退出',
+      });
+    });
+  }
+};
+
+// 监听路由变化并更新激活菜单项
+watch(route, (newRoute) => {
+  setActiveMenu(newRoute.path);
+});
+
+onMounted(() => {
+  setActiveMenu(route.path);
+});
 </script>
 
 <style scoped>
@@ -285,6 +274,6 @@ export default {
 }
 
 .header-avatar {
-  margin-left: 10%;
+  margin-left: auto;
 }
 </style>
