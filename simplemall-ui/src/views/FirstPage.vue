@@ -1,12 +1,24 @@
 <template>
-    <div class="block text-center">
+  <div class="block text-center">
     <span class="demonstration">
       专业选品，品质保障，您的首选
     </span>
     <el-divider />
-    <el-carousel height="400px" style="width: 800px; margin-left: 80px;">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3 class="small justify-center" text="2xl">{{ item }}</h3>
+    <el-carousel height="500px" style="width: 90%; height: 70%; margin: 100px auto 0;">
+      <el-carousel-item>
+        <img src="../assets/images/404NotFoundPage.png" alt="1" class="carousel-image" />
+      </el-carousel-item>
+
+      <el-carousel-item>
+        <img src="../assets/images/404NotFoundPage.png" alt="2" class="carousel-image" />
+      </el-carousel-item>
+
+      <el-carousel-item>
+        <img src="../assets/images/404NotFoundPage.png" alt="3" class="carousel-image" />
+      </el-carousel-item>
+
+      <el-carousel-item>
+        <img src="../assets/images/404NotFoundPage.png" alt="4" class="carousel-image" />
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -20,17 +32,21 @@ export default {
 
 <style scoped>
 .demonstration {
-  font-family: "Microsoft YaHei, sans-serif";
+  font-family: "Microsoft YaHei", sans-serif;
   font-weight: bold; /* 设置字体加粗 */
   text-align: right; /* 将文本靠右对齐 */
 }
 
-.el-carousel__item h3 {
-  color: #475669;
-  opacity: 0.75;
-  line-height: 150px;
-  margin: 0;
-  text-align: center;
+.el-carousel__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .el-carousel__item:nth-child(2n) {
