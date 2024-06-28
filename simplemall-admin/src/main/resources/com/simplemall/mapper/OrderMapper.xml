@@ -5,13 +5,15 @@
 <mapper namespace="com.simplemall.mapper.OrderMapper">
     <!--条件查询-->
     <select id="orderListPage" resultType="com.simplemall.pojo.Order">
-        select *
-        from `order`
+        SELECT o.*, p.p_name AS pName
+        FROM `order` o
+        JOIN `product` p ON o.product_id = p.product_id
         <where>
             <if test="uId != null">
-                and u_id like concat('%',#{uId},'%')
+                AND o.u_id LIKE CONCAT('%', #{uId}, '%')
             </if>
-            and status = 0
+            AND o.status = 0
         </where>
     </select>
 </mapper>
+

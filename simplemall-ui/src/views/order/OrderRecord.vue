@@ -29,7 +29,11 @@
         <el-table-column prop="productId" label="商品编号" align="center"></el-table-column>
         <el-table-column prop="uid" label="用户账号" align="center"></el-table-column>
         <el-table-column prop="pname" label="商品名称" align="center"></el-table-column>
-        <el-table-column prop="orderTime" label="下单时间" align="center"></el-table-column>
+        <el-table-column prop="orderTime" label="下单时间" align="center">
+          <template #default="scope">
+            {{ formatDate(scope.row.orderTime) }}
+          </template>
+        </el-table-column>
         <el-table-column prop="operateTime" label="操作时间" align="center">
           <template #default="scope">
             {{ formatDate(scope.row.operateTime) }}
@@ -130,6 +134,7 @@ export default {
 
     // 格式化日期
     formatDate(isoString) {
+      if (!isoString) return '';
       const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
       return new Date(isoString).toLocaleDateString('zh-CN', options);
     }
