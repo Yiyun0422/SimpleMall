@@ -6,19 +6,19 @@
     <el-divider />
     <el-carousel height="500px" style="width: 90%; height: 70%; margin: 100px auto 0;">
       <el-carousel-item>
-        <img src="../assets/images/404NotFoundPage.png" alt="1" class="carousel-image" />
+        <img src="../assets/images/5.png" alt="1" class="carousel-image" />
       </el-carousel-item>
 
       <el-carousel-item>
-        <img src="../assets/images/404NotFoundPage.png" alt="2" class="carousel-image" />
+        <img src="../assets/images/2.png" alt="2" class="carousel-image" />
+      </el-carousel-item>
+
+      <el-carousel-item>  <!-- 添加新的轮播图 -->4
+        <img src="../assets/images/3.png" alt="3" class="carousel-image" />
       </el-carousel-item>
 
       <el-carousel-item>
-        <img src="../assets/images/404NotFoundPage.png" alt="3" class="carousel-image" />
-      </el-carousel-item>
-
-      <el-carousel-item>
-        <img src="../assets/images/404NotFoundPage.png" alt="4" class="carousel-image" />
+        <img src="../assets/images/4.png" alt="4" class="carousel-image" />
       </el-carousel-item>
     </el-carousel>
   </div>
