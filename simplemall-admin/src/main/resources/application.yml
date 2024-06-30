@@ -19,13 +19,6 @@ mybatis:
     map-underscore-to-camel-case: true
 
 
-#阿里云oss
-aliyun:
-  oss:
-    endpoint: https://oss-cn-hangzhou.aliyuncs.com
-    accessKeyId: LTAI5t8FjoPAcowNXfMRhVAG
-    accessKeySecret: IdshgTjnUrIbcw9O4Bz6zxxsm5zmAF
-    bucketName: web-tlias-yiyun
 
 
 #spring 事务管理日志开关
