@@ -29,11 +29,11 @@
             {{ formatDate(scope.row.orderTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="operateTime" label="操作时间" align="center">
+        <!-- <el-table-column prop="operateTime" label="操作时间" align="center">
           <template #default="scope">
             {{ formatDate(scope.row.operateTime) }}
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="操作" width="200" align="center">
           <template #default="scope">
             <el-button type="success" @click="sendOrder(scope.row.orderId)">发货</el-button>

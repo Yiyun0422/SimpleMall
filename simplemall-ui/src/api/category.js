@@ -39,11 +39,6 @@ export async function updateCategory(params) {
 }
 
 export async function insertCategory(params) {
-    console.log(params)
-    console.log(params)
-    console.log(params)
-    console.log(params)
-    console.log(params)
     try {
         const response = await service.post(`/category/insert`,params);
         if (response.code !== 1) {

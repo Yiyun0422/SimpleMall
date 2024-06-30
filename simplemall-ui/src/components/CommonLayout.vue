@@ -74,6 +74,7 @@ import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { ElMessageBox, ElMessage } from 'element-plus';
 
+
 const router = useRouter();
 const route = useRoute();
 const activeMenu = ref('1');
