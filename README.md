@@ -36,6 +36,8 @@ Simple-mall
  │   ├── nginx.conf （Nginx 的配置文件）
  │   └── nginx.exe （Nginx 的可执行文件）
  |
+ ├── documents （图片资源）
+ |
  ├── simplemall-ui（前端程序）
  │   ├── api
  │   ├── assets （静态资源文件）
@@ -79,28 +81,28 @@ Simple-mall
 
 输入错误的url，会显示页面不存在：
 
-![img](https://img-blog.csdnimg.cn/direct/064496e1730249f584a06ab3011394c0.png)
+![img](![img](./documents/404page.png)
 
 
 
 登录页面:
-![img](https://img-blog.csdnimg.cn/direct/75887135b17e41a599bd22342251054a.png)
+![img](./documents/login.png)
 
 
 
 注册页面：
-![img](https://img-blog.csdnimg.cn/direct/c5dded6e416d4c6996218058d025bc1d.png)
+![img](./documents/register.png)
 
 
 
 首页展示：
-![img](https://img-blog.csdnimg.cn/direct/d6dcc6ddaee04f8bb79a248823581c2d.png)
+![img](./documents/firstpage.png)
 
 
 
 点击右上角头像之后可以选择退出登录或者进入个人主页：
 
-![img](https://img-blog.csdnimg.cn/direct/9c23a3f44eab45ee9377d3f9eb3b87b3.png)
+![img](./documents/personal.png)
 
 主页内容目前是只读，若要进行修改，需要点击下方修改按钮进行修改操作，这里的修改操作会影响到用户表中的数据。
 
@@ -108,7 +110,7 @@ Simple-mall
 
 商品列表页面：
 
-![img](https://img-blog.csdnimg.cn/direct/96a578960b6e4d2981b7a86d04a9bf41.png)
+![img](./documents/productlist.png)
 
 可以进行完整的增删改查操作与分页条件查询操作。
 
@@ -116,13 +118,13 @@ Simple-mall
 
 添加商品页面：
 
-![img](https://img-blog.csdnimg.cn/direct/36163c99108e41a4b63b0ad46ffc9a03.png)
+![img](./documents/productedit.png)
 
 
 
 商品类别页面：
 
-![img](https://img-blog.csdnimg.cn/direct/0c4c8267cc19459fbd1be2e92eda0ecf.png)
+![img](./documents/category.png)
 
  在商品类别页面进行增删改操作都会影响前面的商品列表中的数据展示。
 
@@ -130,11 +132,11 @@ Simple-mall
 
 订单信息查询页面：
 
-![img](https://img-blog.csdnimg.cn/direct/578bd698b7c14c459d183403c1cfc7d6.png)
+![img](./documents/orderlist.png)
 
  在用户下单后，订单信息会出现在订单列表中，由管理员进行发货或者取消订单操作，当管理员进行操作之后，订单信息会被记录在订单记录中。
 
-![img](https://img-blog.csdnimg.cn/direct/d822d788b6cf4837956b9d654c4e00b0.png)
+![img](./documents/orderrecord.png)
 
  若是管理员将订单取消，仓库中的商品库存会相对应地进行增加。
 
@@ -142,13 +144,13 @@ Simple-mall
 
 用户信息列表：
 
-![img](https://img-blog.csdnimg.cn/direct/f96519efd22c4ad4b298587e9559402e.png)
+![img](./documents/userlist.png)
 
 可以进行增删改查操作
 
 职能管理与商品类别实现思路基本一致：
 
-![img](https://img-blog.csdnimg.cn/direct/72d012dbf8744b6c863085abe9e13512.png)
+![img](./documents/orderrecord.png)
 
 以上就是页面基本情况
 
@@ -158,31 +160,31 @@ Simple-mall
 
 产品表product：
 
-![img](https://img-blog.csdnimg.cn/direct/455174ac237b4bfa83ccef23519ae926.png)
+![img](./documents/producttable.png)
 
 
 
 类别表category：
 
-![img](https://img-blog.csdnimg.cn/direct/066d1346449743f89508689cfa48853b.png)
+![img](./documents/categorytable.png)
 
 
 
 订单信息表order：
 
-![img](https://img-blog.csdnimg.cn/direct/30484d37cd70484081a8b089f6281aa5.png)
+![img](./documents/ordertable.png)
 
 
 
 用户信息表user：
 
-![img](https://img-blog.csdnimg.cn/direct/7d5088b911874728ac3194950cfc0ff2.png)
+![img](./documents/usertable.png)
 
 
 
 职能表role：
 
-![img](https://img-blog.csdnimg.cn/direct/6b0069c21e4d4e0c9622dff6482cfddb.png)
+![img](./documents/roletable.png)
 
 
 
