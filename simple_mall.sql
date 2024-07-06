@@ -308,9 +308,7 @@ INSERT INTO `user` VALUES (153, 'user117', 'user123572', '用户117', NULL, 'use
 INSERT INTO `user` VALUES (154, 'user118', 'user123573', '用户119', NULL, 'user118@163.com', '2024-05-23 11:47:01', '2024-05-27 00:35:16', 3);
 INSERT INTO `user` VALUES (191, '111', 'user123456', '111', '', '', '2024-06-27 23:39:19', '2024-06-27 23:39:19', NULL);
 
--- ----------------------------
--- Triggers structure for table product
--- ----------------------------
+
 DROP TRIGGER IF EXISTS `after_product_insert`;
 delimiter ;;
 CREATE TRIGGER `after_product_insert` AFTER INSERT ON `product` FOR EACH ROW BEGIN
@@ -321,9 +319,7 @@ END
 ;;
 delimiter ;
 
--- ----------------------------
--- Triggers structure for table product
--- ----------------------------
+
 DROP TRIGGER IF EXISTS `after_product_update`;
 delimiter ;;
 CREATE TRIGGER `after_product_update` AFTER UPDATE ON `product` FOR EACH ROW BEGIN
@@ -347,9 +343,7 @@ END
 ;;
 delimiter ;
 
--- ----------------------------
--- Triggers structure for table product
--- ----------------------------
+
 DROP TRIGGER IF EXISTS `after_product_delete`;
 delimiter ;;
 CREATE TRIGGER `after_product_delete` AFTER DELETE ON `product` FOR EACH ROW BEGIN
